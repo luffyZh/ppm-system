@@ -1,26 +1,73 @@
-# ppm-system
-Privacy protection monitoring system based on specific scenarios.
+# React + TypeScript + Vite
 
-## IDEA to Product
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-### Stage1 - 想法拆解与技术尽调
+Currently, two official plugins are available:
 
-本阶段提示词如下：
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-![Stage1 Prompt](./Stage1/prompt-01.png)
+## React Compiler
 
-产出文档如下：
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-[Stage1 仓库总结与产品方向](./Stage1/仓库总结与产品方向.md)
+## Expanding the ESLint configuration
 
-但是这个技术点的总结感觉并不足以撑起一个产品，它的准确率以及可落地的场景目前不够明确，作为技术来说可以探索，但是如果要做一个产品比较单薄，因为我个人接触了一些场景以及相关技术，所以我人为修复了一下方向：
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-![Stage1 Prompt](./Stage1/prompt-02.png)
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-产出文档如下：
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-[Stage1 技术可行性与竞品分析](./Stage1/多模态隐私防护监控-技术可行性与竞品分析.md)
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
 
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-这里关键点大家应该也看出来了， AI 很聪明，但是并不代表 AI 能够直接满足我们的需求，我们需要根据 AI 的结果，进行一些调整，无论是哪个方向的工作，你都要自己肚子里有东西，才能用好 AI。
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
