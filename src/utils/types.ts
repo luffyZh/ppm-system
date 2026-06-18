@@ -1,4 +1,10 @@
-export type AlarmType = 'INTRUSION' | 'LOITERING' | 'FALL_SUSPECTED' | 'NO_MOTION'
+export type AlarmType =
+  | 'INTRUSION'
+  | 'LOITERING'
+  | 'FALL_SUSPECTED'
+  | 'NO_MOTION'
+  | 'PASS_BY'
+  | 'SNEAK_PHOTO_SUSPECTED'
 export type AlarmStatus = 'OPEN' | 'ACKED' | 'CLOSED'
 
 export interface Device {
@@ -17,8 +23,8 @@ export interface AlarmEvent {
   zone: string
   deviceIds: string[]
   confidence: number // 0..1
+  peopleCount?: number
   startAt: string // ISO
   endAt?: string // ISO
   note?: string
 }
-

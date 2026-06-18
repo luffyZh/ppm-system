@@ -9,22 +9,23 @@ export function AlarmsPage() {
   const openCount = useMemo(() => alarms.filter((a) => a.status === 'OPEN').length, [alarms])
 
   return (
-    <div className="space-y-6">
-      <Card
-        title="告警中心"
-        right={<span className="text-zinc-500">未处理：{openCount}</span>}
-      >
-        <div className="mb-4 text-sm text-zinc-400">
-          说明：本 Demo 仅模拟 Stage2 的两类核心能力（闯入/徘徊、疑似跌倒）与“辅助告警”处置流程。
-        </div>
-        <AlarmTable
-          alarms={alarms}
-          onUpdate={(id, patch) => {
-            setAlarms((prev) => prev.map((a) => (a.id === id ? { ...a, ...patch } : a)))
-          }}
-        />
-      </Card>
+    <div className="h-full min-h-0 overflow-auto pr-1">
+      <div className="space-y-6">
+        <Card
+          title="告警中心"
+          right={<span className="text-zinc-500">未处理：{openCount}</span>}
+        >
+          <div className="mb-4 text-sm text-zinc-400">
+            说明：本 Demo 仅模拟 Stage2 的两类核心能力（闯入/徘徊、疑似跌倒）与“辅助告警”处置流程。
+          </div>
+          <AlarmTable
+            alarms={alarms}
+            onUpdate={(id, patch) => {
+              setAlarms((prev) => prev.map((a) => (a.id === id ? { ...a, ...patch } : a)))
+            }}
+          />
+        </Card>
+      </div>
     </div>
   )
 }
-

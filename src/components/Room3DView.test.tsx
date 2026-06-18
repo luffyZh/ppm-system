@@ -24,8 +24,14 @@ describe('Room3DView', () => {
         zones={[
           { zone: '涉密核心区-A', tone: 'warn', label: '涉密核心区-A' },
         ]}
+        people={[
+          { id: 'p-01', x: 0, z: 0, state: 'focus' },
+          { id: 'p-02', x: 1, z: 1, state: 'tracking' },
+        ]}
       />,
     )
     expect(screen.getByTestId('canvas')).toBeInTheDocument()
+    expect(screen.getByText('当前房间人数')).toBeInTheDocument()
+    expect(screen.getByText('2')).toBeInTheDocument()
   })
 })

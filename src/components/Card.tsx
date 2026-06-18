@@ -5,13 +5,14 @@ export function Card(
     title?: string
     right?: React.ReactNode
     className?: string
+    bodyClassName?: string
   }>,
 ) {
   return (
     <section
       className={[
-        'group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]',
-        'shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_20px_70px_-30px_rgba(0,0,0,0.9)]',
+        'group relative overflow-hidden rounded-2xl border border-[color:var(--panel-border)] bg-[color:var(--panel-bg)]',
+        'shadow-[var(--panel-shadow)]',
         'backdrop-blur-xl',
         props.className ?? '',
       ].join(' ')}
@@ -22,16 +23,17 @@ export function Card(
       </div>
 
       {(props.title || props.right) && (
-        <header className="relative flex items-center justify-between gap-3 border-b border-white/10 px-5 py-4">
-          <div className="text-sm font-semibold tracking-wide text-zinc-200">
+        <header className="relative flex items-center justify-between gap-3 border-b border-[color:var(--panel-border)] px-5 py-4">
+          <div className="text-sm font-semibold tracking-wide text-[color:var(--text-strong)]">
             {props.title}
           </div>
-          <div className="text-xs text-zinc-400">{props.right}</div>
+          <div className="text-xs text-[color:var(--text-soft)]">{props.right}</div>
         </header>
       )}
 
-      <div className="relative px-5 py-4">{props.children}</div>
+      <div className={['relative px-5 py-4', props.bodyClassName ?? ''].join(' ')}>
+        {props.children}
+      </div>
     </section>
   )
 }
-
